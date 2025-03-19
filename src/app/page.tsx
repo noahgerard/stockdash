@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { LatestPost } from "~/app/_components/post";
@@ -10,42 +11,20 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-          </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
+      <main className="flex min-h-screen flex-col items-center justify-center bg-slate-200">
+        <div className="container border-2 flex flex-col items-center justify-center gap-12 px-4 py-16">
+          <div className="flex flex-col md:flex-row p-8 md:p-16 relative">
+            <div className="flex basis-1/2 flex-col gap-4 min-w-[100px] z-[1] pb-40">
+              <h3 className="font-semibold text-4xl"><span className="text-green-400">Supercharge</span> Your Trading,<br /> Without the Risk</h3>
+              <p>StockDash lets you practice trading risk-free with real-time data and powerful portfolio tracking. Refine your strategies, monitor performance, and build confidence—all in one easy-to-use dashboard.</p>
+              <div>
+                <button>Get Started</button>
               </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
+            </div>
+            <div className="basis-1/2 min-w-[100px] p-2 z-0">
+              <Image src="/blob1.png" alt="Blurry blobs" fill objectFit="contain" />
+            </div>
           </div>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {hello ? hello.greeting : "Loading tRPC query..."}
-            </p>
-          </div>
-
-          <LatestPost />
         </div>
       </main>
     </HydrateClient>
