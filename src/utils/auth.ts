@@ -4,11 +4,11 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 export const auth = betterAuth({
-    emailAndPassword: {
-        enabled: true,
-        requireEmailVerification: false,
-    },
-    database: prismaAdapter(prisma, {
-        provider: "postgresql",
-    }),
+  emailAndPassword: {
+    enabled: true,
+    requireEmailVerification: false,
+  },
+  database: prismaAdapter(prisma, {
+    provider: "postgresql",
+  }),
 });

@@ -4,17 +4,17 @@ import { auth } from "./auth";
 import { headers } from "next/headers";
 
 export const validateSessionMiddleware = middlewareBase(async ({ next }) => {
-	const session = await auth.api.getSession({
-		headers: await headers(),
-	});
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
-	console.log("Session: ", session);
+  console.log("Session: ", session);
 
-	if (!session) {
-		throw new TRPCError({
-			code: "UNAUTHORIZED",
-		});
-	}
+  if (!session) {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+    });
+  }
 
-	return next();
+  return next();
 });

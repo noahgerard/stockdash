@@ -1,6 +1,6 @@
 "use client";
 
-import { toast } from "sonner"
+import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -21,7 +21,7 @@ import { api } from "~/trpc/react";
 import { TRPCError } from "@trpc/server";
 
 export default function InputForm() {
-  const { mutateAsync, isPending} = api.user.signup.useMutation();
+  const { mutateAsync, isPending } = api.user.signup.useMutation();
   const form = useForm<z.infer<typeof signUpValidation>>({
     resolver: zodResolver(signUpValidation),
     defaultValues: {
@@ -33,12 +33,14 @@ export default function InputForm() {
   });
 
   async function onSubmit(data: z.infer<typeof signUpValidation>) {
-    await mutateAsync(data).then(() => {
-			toast.success("Account created successfully!");
-		}).catch((error: TRPCError) => {
-			console.error(error)
-			toast.error(error.message);
-		});
+    await mutateAsync(data)
+      .then(() => {
+        toast.success("Account created successfully!");
+      })
+      .catch((error: TRPCError) => {
+        console.error(error);
+        toast.error(error.message);
+      });
   }
 
   return (

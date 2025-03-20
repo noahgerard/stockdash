@@ -12,16 +12,30 @@ export default async function Home() {
     <HydrateClient>
       <main className="flex min-h-screen flex-col items-center justify-center">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <div className="flex flex-col md:flex-row p-8 md:p-16 relative">
-            <div className="flex basis-1/2 flex-col gap-4 min-w-[100px] z-[1] pb-40">
-              <h3 className="font-semibold text-4xl"><span className="text-green-400">Supercharge</span> Your Trading,<br /> Without the Risk</h3>
-              <p>StockDash lets you practice trading risk-free with real-time data and powerful portfolio tracking. Refine your strategies, monitor performance, and build confidence—all in one easy-to-use dashboard.</p>
+          <div className="relative flex flex-col p-8 md:flex-row md:p-16">
+            <div className="z-[1] flex min-w-[100px] basis-1/2 flex-col gap-4 pb-40">
+              <h3 className="text-4xl font-semibold">
+                <span className="text-green-400">Supercharge</span> Your
+                Trading,
+                <br /> Without the Risk
+              </h3>
+              <p>
+                StockDash lets you practice trading risk-free with real-time
+                data and powerful portfolio tracking. Refine your strategies,
+                monitor performance, and build confidence—all in one easy-to-use
+                dashboard.
+              </p>
               <div>
                 <Link href="/signup">Sign Up</Link>
               </div>
             </div>
-            <div className="basis-1/2 min-w-[100px] p-2 z-0">
-              <Image src="/blob1.png" alt="Blurry blobs" fill objectFit="contain" />
+            <div className="z-0 min-w-[100px] basis-1/2 p-2">
+              <Image
+                src="/blob1.png"
+                alt="Blurry blobs"
+                fill
+                objectFit="contain"
+              />
             </div>
           </div>
         </div>
