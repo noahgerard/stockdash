@@ -1,11 +1,11 @@
 import { TRPCError } from "@trpc/server";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-import { signUp } from "~/utils/auth-client";
-import { signUpValidation } from "~/utils/zod";
+import { signUp, signIn } from "~/utils/auth-client";
+import { signUpValidation, signInValidation } from "~/utils/zod";
 
 export const userRouter = createTRPCRouter({
-  signup: publicProcedure
+/*   signup: publicProcedure
     //		.use(validateSessionMiddleware)
     .input(signUpValidation)
     .mutation(async ({ input }) => {
@@ -22,10 +22,31 @@ export const userRouter = createTRPCRouter({
 
         throw new TRPCError({
           code: "BAD_REQUEST",
-		  message: "An error occurred while creating your account.",
+          message: "An error occurred while creating your account.",
         });
       } else {
-		return data;
-	  }
+        return data;
+      }
     }),
+  signin: publicProcedure
+    .input(signInValidation)
+    .mutation(async ({ input }) => {
+      const { email, password } = input;
+
+      const data = await signIn.email({
+        email,
+        password,
+      });
+
+      if (data.error) {
+        console.error(data.error);
+
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "An error occurred while signing in.",
+        });
+      } else {
+        return data;
+      }
+    }), */
 });

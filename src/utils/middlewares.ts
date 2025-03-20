@@ -8,8 +8,6 @@ export const validateSessionMiddleware = middlewareBase(async ({ next }) => {
     headers: await headers(),
   });
 
-  console.log("Session: ", session);
-
   if (!session) {
     throw new TRPCError({
       code: "UNAUTHORIZED",

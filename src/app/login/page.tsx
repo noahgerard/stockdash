@@ -16,7 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signUpValidation } from "~/utils/zod";
+import { signInValidation } from "~/utils/zod";
 import { useRouter } from "next/navigation";
 import {
   Card,
@@ -26,44 +26,39 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
-import { signUp } from "~/utils/auth-client";
+import { signIn } from "~/utils/auth-client";
 import { useState } from "react";
 
-export default function SignUpPage() {
+export default function LoginPage() {
   const router = useRouter();
-	const [isPending, setIsPending] = useState(false);
+  const [isPending, setIsPending] = useState(false);
 
-  const form = useForm<z.infer<typeof signUpValidation>>({
-    resolver: zodResolver(signUpValidation),
+  const form = useForm<z.infer<typeof signInValidation>>({
+    resolver: zodResolver(signInValidation),
     defaultValues: {
-      name: "",
       email: "",
       password: "",
-      confirm: "",
     },
   });
 
+  async function onSubmit(data: z.infer<typeof signInValidation>) {
+    if (isPending) return;
+    setIsPending(true);
 
+    const action = await signIn.email({
+      email: data.email,
+      password: data.password,
+    });
 
-  async function onSubmit(data: z.infer<typeof signUpValidation>) {
-		if (isPending) return;
-		setIsPending(true);
+    setIsPending(false);
 
-    const action = await signUp.email({
-			email: data.email,
-			name: data.name,
-			password: data.password,
-		});
-
-		setIsPending(false);
-
-		if (action.error) {
-			toast.error("An error occurred while creating your account.");
-			console.error(action.error);
-		} else {
-			toast.success("Account created successfully.");
-			router.push("/dashboard");
-		}
+    if (action.error) {
+      toast.error("Invalid email or password");
+      console.error(action.error);
+    } else {
+      toast.success("Login successful!");
+      router.push("/dashboard");
+    }
   }
 
   return (
@@ -71,9 +66,9 @@ export default function SignUpPage() {
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
         <Card>
           <CardHeader>
-            <CardTitle>Signup</CardTitle>
+            <CardTitle>Login</CardTitle>
             <CardDescription>
-              Fill in the form below to create an account.
+              Fill in the form below to login to your account.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -82,20 +77,6 @@ export default function SignUpPage() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-4"
               >
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="chuck norris" {...field} />
-                      </FormControl>
-                      <FormDescription>Your name</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
                 <FormField
                   control={form.control}
                   name="email"
@@ -130,7 +111,7 @@ export default function SignUpPage() {
                 />
                 <div className="flex justify-end">
                   <Button type="submit" className="w-full" disabled={isPending}>
-                    Create account
+                    Login
                   </Button>
                 </div>
               </form>
@@ -138,7 +119,7 @@ export default function SignUpPage() {
             <Separator />
             <div className="flex justify-center">
               <Button size={"sm"} variant={"link"} className="w-full">
-                <a href="/login">Already have an account? Login</a>
+                <a href="/signup">Don&apos;t have an account? Signup</a>
               </Button>
             </div>
           </CardContent>

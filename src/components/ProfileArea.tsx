@@ -9,24 +9,23 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { Skeleton } from "./ui/skeleton";
 import { HomeIcon, LogOut } from "lucide-react";
 import Link from "next/link";
 
 export default function ProfileArea() {
   const session = useSession();
 
-  console.log("Session: ", session);
-
   return (
-    <div className="">
+    <>
       {session.isPending ? (
-        "Loading"
+        <Skeleton className="h-10 w-10 rounded-full" />
       ) : session.error ? (
         "Error"
       ) : session.data ? (
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Avatar>
+            <Avatar className="box-border border-2 border-red-400">
               <AvatarImage
                 className="object-cover"
                 src={
@@ -38,7 +37,7 @@ export default function ProfileArea() {
               <AvatarFallback>{session.data?.user.name}</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
+          <DropdownMenuContent className="w-48">
             <DropdownMenuLabel>{session.data?.user.name}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link href="/dashboard">
@@ -65,6 +64,6 @@ export default function ProfileArea() {
           </Button>
         </div>
       )}
-    </div>
+    </>
   );
 }
