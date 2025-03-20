@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { LatestPost } from "~/app/_components/post";
 import { api, HydrateClient } from "~/trpc/server";
 
 export default async function Home() {
@@ -11,8 +10,8 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-slate-200">
-        <div className="container border-2 flex flex-col items-center justify-center gap-12 px-4 py-16">
+      <main className="flex min-h-screen flex-col items-center justify-center">
+        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
           <div className="flex flex-col md:flex-row p-8 md:p-16 relative">
             <div className="flex basis-1/2 flex-col gap-4 min-w-[100px] z-[1] pb-40">
               <h3 className="font-semibold text-4xl"><span className="text-green-400">Supercharge</span> Your Trading,<br /> Without the Risk</h3>

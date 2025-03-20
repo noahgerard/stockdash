@@ -73,6 +73,8 @@ export const createCallerFactory = t.createCallerFactory;
  */
 export const createTRPCRouter = t.router;
 
+export const middlewareBase = t.middleware;
+
 /**
  * Middleware for timing procedure execution and adding an artificial delay in development.
  *

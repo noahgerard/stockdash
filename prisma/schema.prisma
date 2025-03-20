@@ -22,8 +22,6 @@ model Post {
 model User {
   id            String    @id
   name          String
-  username      String
-  displayName   String
   email         String
   emailVerified Boolean
   image         String?
