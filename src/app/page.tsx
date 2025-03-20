@@ -18,7 +18,7 @@ export default async function Home() {
               <h3 className="font-semibold text-4xl"><span className="text-green-400">Supercharge</span> Your Trading,<br /> Without the Risk</h3>
               <p>StockDash lets you practice trading risk-free with real-time data and powerful portfolio tracking. Refine your strategies, monitor performance, and build confidence—all in one easy-to-use dashboard.</p>
               <div>
-                <button>Get Started</button>
+                <Link href="/signup">Sign Up</Link>
               </div>
             </div>
             <div className="basis-1/2 min-w-[100px] p-2 z-0">
