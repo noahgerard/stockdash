@@ -22,10 +22,10 @@ export const userRouter = createTRPCRouter({
 
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: data.error.message ?? data.error.statusText,
+		  message: "An error occurred while creating your account.",
         });
-      }
-
-      return data;
+      } else {
+		return data;
+	  }
     }),
 });
