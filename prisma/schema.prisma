@@ -86,10 +86,12 @@ model Portfolio {
   name        String
   description String @default("")
 
-  dailyChangePercent Decimal @default(0)
-  dailyChangeAmount  Decimal @default(0)
+  dailyChangePercent Float @default(0)
+  dailyChangeAmount  Float @default(0)
 
-  totalValue        Decimal @default(0)
+  cashBalance Float @default(0)
+
+  totalValue Float @default(0)
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
