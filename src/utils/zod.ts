@@ -22,7 +22,7 @@ export const createPortfolio = z.object({
 });
 
 export const listPortfolios = z.object({
-  page: z.number().min(1)
+  page: z.number().min(1),
 });
 
 export const updatePortfolio = z.object({

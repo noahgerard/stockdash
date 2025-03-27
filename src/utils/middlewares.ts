@@ -3,21 +3,23 @@ import { middlewareBase } from "~/server/api/trpc";
 import { auth } from "./auth";
 import { headers } from "next/headers";
 
-export const validateSessionMiddleware = middlewareBase(async ({ next, ctx }) => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  if (!session) {
-    throw new TRPCError({
-      code: "UNAUTHORIZED",
+export const validateSessionMiddleware = middlewareBase(
+  async ({ next, ctx }) => {
+    const session = await auth.api.getSession({
+      headers: await headers(),
     });
-  }
 
-  return next({
-    ctx: {
-      ...(ctx),
-      session
+    if (!session) {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+      });
     }
-  });
-});
+
+    return next({
+      ctx: {
+        ...ctx,
+        session,
+      },
+    });
+  },
+);

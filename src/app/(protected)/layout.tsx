@@ -16,7 +16,7 @@ export default async function ProtectedLayout({
   if (!session) {
     redirect("/login");
   }
-	
+
   // Return the children wrapped in a fragment
   return <>{children}</>;
 }

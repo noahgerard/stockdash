@@ -5,7 +5,7 @@ import { signUp, signIn } from "~/utils/auth-client";
 import { signUpValidation, signInValidation } from "~/utils/zod";
 
 export const userRouter = createTRPCRouter({
-/*   signup: publicProcedure
+  /*   signup: publicProcedure
     //		.use(validateSessionMiddleware)
     .input(signUpValidation)
     .mutation(async ({ input }) => {
