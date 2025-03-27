@@ -15,3 +15,22 @@ export const signInValidation = z.object({
   email: z.string().email().max(50),
   password: z.string().min(8).max(20),
 });
+
+export const createPortfolio = z.object({
+  name: z.string().min(1).max(50),
+  description: z.string().max(200).optional(),
+});
+
+export const listPortfolios = z.object({
+  page: z.number().min(1)
+});
+
+export const updatePortfolio = z.object({
+  id: z.string(),
+  name: z.string().min(1).max(50).optional(),
+  description: z.string().max(200).optional(),
+});
+
+export const deletePortfolio = z.object({
+  id: z.string(),
+});

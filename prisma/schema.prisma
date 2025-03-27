@@ -30,6 +30,8 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
+  portfolios Portfolio[]
+
   @@unique([email])
   @@map("user")
 }
@@ -77,4 +79,18 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model Portfolio {
+  id          String @id @default(uuid())
+  name        String
+  description String @default("")
+
+  dailyChangePercent Decimal @default(0)
+  dailyChangeAmount  Decimal @default(0)
+
+  totalValue        Decimal @default(0)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
