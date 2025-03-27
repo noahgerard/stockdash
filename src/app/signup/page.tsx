@@ -31,7 +31,7 @@ import { useState } from "react";
 
 export default function SignUpPage() {
   const router = useRouter();
-	const [isPending, setIsPending] = useState(false);
+  const [isPending, setIsPending] = useState(false);
 
   const form = useForm<z.infer<typeof signUpValidation>>({
     resolver: zodResolver(signUpValidation),
@@ -43,27 +43,25 @@ export default function SignUpPage() {
     },
   });
 
-
-
   async function onSubmit(data: z.infer<typeof signUpValidation>) {
-		if (isPending) return;
-		setIsPending(true);
+    if (isPending) return;
+    setIsPending(true);
 
     const action = await signUp.email({
-			email: data.email,
-			name: data.name,
-			password: data.password,
-		});
+      email: data.email,
+      name: data.name,
+      password: data.password,
+    });
 
-		setIsPending(false);
+    setIsPending(false);
 
-		if (action.error) {
-			toast.error("An error occurred while creating your account.");
-			console.error(action.error);
-		} else {
-			toast.success("Account created successfully.");
-			router.push("/dashboard");
-		}
+    if (action.error) {
+      toast.error("An error occurred while creating your account.");
+      console.error(action.error);
+    } else {
+      toast.success("Account created successfully.");
+      router.push("/dashboard");
+    }
   }
 
   return (
@@ -71,7 +69,7 @@ export default function SignUpPage() {
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
         <Card>
           <CardHeader>
-            <CardTitle>Signup</CardTitle>
+            <CardTitle className="text-2xl">Signup</CardTitle>
             <CardDescription>
               Fill in the form below to create an account.
             </CardDescription>

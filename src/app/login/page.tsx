@@ -66,7 +66,7 @@ export default function LoginPage() {
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
         <Card>
           <CardHeader>
-            <CardTitle>Login</CardTitle>
+            <CardTitle className="text-2xl">Login</CardTitle>
             <CardDescription>
               Fill in the form below to login to your account.
             </CardDescription>
