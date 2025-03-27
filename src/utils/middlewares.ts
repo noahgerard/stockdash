@@ -3,7 +3,7 @@ import { middlewareBase } from "~/server/api/trpc";
 import { auth } from "./auth";
 import { headers } from "next/headers";
 
-export const validateSessionMiddleware = middlewareBase(async ({ next }) => {
+export const validateSessionMiddleware = middlewareBase(async ({ next, ctx }) => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -14,5 +14,10 @@ export const validateSessionMiddleware = middlewareBase(async ({ next }) => {
     });
   }
 
-  return next();
+  return next({
+    ctx: {
+      ...(ctx),
+      session
+    }
+  });
 });
