@@ -32,6 +32,7 @@ import {
   CardFooter,
   CardHeader,
 } from "~/components/ui/card";
+import NewPortButton from "~/components/NewPortButton";
 
 const portfolios: {
   id: number;
@@ -68,10 +69,7 @@ export default function Dashboard() {
               View and manage your trading portfolios.
             </p>
           </div>
-          <Button variant={"secondary"}>
-            <PlusIcon />
-            Create Portfolio
-          </Button>
+          <NewPortButton />
         </div>
         <Card>
           <CardHeader />
