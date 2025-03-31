@@ -2,6 +2,7 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import FancySearch from "~/components/FancySearch";
 import { auth } from "~/utils/auth";
 
 export default async function ProtectedLayout({
