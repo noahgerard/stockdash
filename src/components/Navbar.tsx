@@ -6,7 +6,7 @@ import FancySearch from "./FancySearch";
 
 export function Navbar() {
   return (
-    <div className=" flex w-full justify-center bg-slate-100 fixed">
+    <div className="fixed flex w-full justify-center bg-slate-100">
       <div className="container flex items-center justify-between p-4">
         <p className="h-fit text-xl font-semibold text-black">
           <Link href="/">StockDash</Link>
