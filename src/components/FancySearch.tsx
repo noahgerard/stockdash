@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { Check, Search } from "lucide-react";
+import { useState, useEffect, use } from "react";
+import { Search } from "lucide-react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -18,6 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { api, TRPCReactProvider } from "~/trpc/react";
 
 const frameworks = [
   {
@@ -45,50 +45,69 @@ const frameworks = [
 export default function FancySearch() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const [debounced, setDebounced] = useState("");
+
+  const polysearch = api.polygon.search.useQuery(
+    {
+      name: debounced,
+    },
+    {
+      enabled: debounced.length > 0,
+    },
+  );
+
+  useEffect(() => {
+    const update = setTimeout(() => {
+      setDebounced(searchInput);
+    }, 500);
+
+    return () => clearTimeout(update);
+  }, [searchInput]);
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-[200px] justify-between"
-        >
-          {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Search for stocks..."}
-          <Search className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandInput placeholder="Search stocks..." />
-          <CommandList>
-            <CommandEmpty>No results.</CommandEmpty>
-            <CommandGroup>
-              {frameworks.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === framework.value ? "opacity-100" : "opacity-0",
-                    )}
-                  />
-                  {framework.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
+    <TRPCReactProvider>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-[350px] justify-between"
+          >
+            {value ? value : "Search for stocks..."}
+            <Search className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[350px] p-0">
+          <Command shouldFilter={false}>
+            <CommandInput
+              placeholder="Search stocks..."
+              onInput={(e) => setSearchInput(e.currentTarget.value)}
+            />
+            <CommandList>
+              <CommandEmpty>No results. {polysearch.data?.length}</CommandEmpty>
+              <CommandGroup>
+                {polysearch.data?.map((ticker) => {
+                  return (
+                    <CommandItem
+                      key={ticker.ticker}
+                      value={ticker.ticker}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue);
+                        setSearchInput("");
+                        setOpen(false);
+                      }}
+                    >
+                      {ticker.ticker}
+                    </CommandItem>
+                  );
+                })}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+    </TRPCReactProvider>
   );
 }

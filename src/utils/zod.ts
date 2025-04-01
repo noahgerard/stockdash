@@ -34,3 +34,7 @@ export const updatePortfolio = z.object({
 export const deletePortfolio = z.object({
   id: z.string(),
 });
+
+export const searchPoly = z.object({
+  name: z.string().min(1).max(50),
+})
