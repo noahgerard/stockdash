@@ -81,6 +81,18 @@ model Verification {
   @@map("verification")
 }
 
+enum OrderType {
+  LIMIT
+  MARKET
+  STOP
+  STOP_LIMIT
+}
+
+enum TradeAction {
+  BUY
+  SELL
+}
+
 model Portfolio {
   id          String @id @default(uuid())
   name        String
@@ -95,4 +107,34 @@ model Portfolio {
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  positions Position[]
+}
+
+model Position {
+  id           String @id @default(uuid())
+  name         String
+  quantity     Float  @default(0) // Total quantity of the position
+  averageCost  Float  @default(0) // Average cost per unit
+  currentValue Float  @default(0) // Current value of the position
+
+  portfolioId String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  history Trade[]
+}
+
+model Trade {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  finalized Boolean
+
+  action   TradeAction // BUY or SELL
+  type     OrderType // LIMIT, MARKET, STOP, etc.
+  quantity Float // Number of units traded
+  price    Float // Price per unit
+  total    Float // Total value of the trade (quantity * price)
+
+  positionId String
+  position   Position @relation(fields: [positionId], references: [id], onDelete: Cascade)
 }
