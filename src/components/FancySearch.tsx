@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -18,29 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { api, TRPCReactProvider } from "~/trpc/react";
-
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-];
+import Link from "next/link";
 
 export default function FancySearch() {
   const [open, setOpen] = useState(false);
@@ -90,17 +68,18 @@ export default function FancySearch() {
               <CommandGroup>
                 {polysearch.data?.map((ticker) => {
                   return (
-                    <CommandItem
-                      key={ticker.ticker}
-                      value={ticker.ticker}
-                      onSelect={(currentValue) => {
-                        setValue(currentValue);
-                        setSearchInput("");
-                        setOpen(false);
-                      }}
-                    >
-                      {ticker.ticker}
-                    </CommandItem>
+                    <Link href={`/stock/${ticker.ticker}`} key={ticker.ticker}>
+                      <CommandItem
+                        value={ticker.ticker}
+                        onSelect={(currentValue) => {
+                          setValue(currentValue);
+                          setSearchInput("");
+                          setOpen(false);
+                        }}
+                      >
+                        {ticker.ticker}
+                      </CommandItem>
+                    </Link>
                   );
                 })}
               </CommandGroup>

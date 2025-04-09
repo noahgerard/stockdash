@@ -38,3 +38,7 @@ export const deletePortfolio = z.object({
 export const searchPoly = z.object({
   name: z.string().min(1).max(50),
 });
+
+export const getStock = z.object({
+  ticker: z.string().min(1).max(10),
+});
