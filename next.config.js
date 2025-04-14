@@ -7,11 +7,15 @@ import "./src/env.js";
 /** @type {import("next").NextConfig} */
 const config = {
 	images: {
+		dangerouslyAllowSVG: true,
 		remotePatterns: [
 			{
 				protocol: "https",
 				hostname: "api.polygon.io",
 				port: "",
+			},
+			{
+				hostname: "placehold.co"
 			}
 		]
 	}

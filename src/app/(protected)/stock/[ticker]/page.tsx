@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { api } from "~/trpc/server";
+import TickerPage from "./tickerPage";
 
 export default async function StockPage({
   params,
@@ -16,8 +17,10 @@ export default async function StockPage({
         <div className="flex">
           {tickerData.branding?.icon_url ? (
             <Image
-              src={tickerData.branding.icon_url}
-              alt={tickerData.name + " icon image"}
+              src={
+                "https://placehold.co/600x600" /* tickerData.branding.icon_url */
+              }
+              alt={tickerData.ticker + " icon image"}
               width={50}
               height={50}
             />
@@ -34,6 +37,7 @@ export default async function StockPage({
           </div>
         </div>
         <h1 className="text-4xl font-bold text-black">{tickerData.name}</h1>
+        <TickerPage ticker="AAPL" />
       </div>
     </main>
   );
